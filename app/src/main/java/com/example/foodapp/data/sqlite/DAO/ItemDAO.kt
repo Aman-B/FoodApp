@@ -9,19 +9,19 @@ import com.example.foodapp.data.sqlite.entities.Item
 @Dao
 interface ItemDAO {
     @Query("SELECT * FROM `Item`")
-    fun getAll(): List<Item>
+    suspend fun getAll(): List<Item>
 
     @Query("SELECT * FROM `Item` WHERE category LIKE (:category)")
-    fun loadAllItemsByCategory(category:String): List<Item>
+    suspend fun loadAllItemsByCategory(category:String): List<Item>
 
     /*@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")
     fun findByOrderNumber(first: String, last: String): User*/
 
     @Insert
-    fun insertAll(items: List<Item>)
+    suspend fun insertAll(items: List<Item>)
 
     @Delete
-    fun delete(item: Item)
+    suspend fun delete(item: Item)
 
 }

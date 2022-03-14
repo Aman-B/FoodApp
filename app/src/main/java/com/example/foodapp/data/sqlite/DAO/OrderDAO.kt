@@ -9,19 +9,21 @@ import com.example.foodapp.data.sqlite.entities.Order
 @Dao
 interface OrderDAO {
     @Query("SELECT * FROM `order`")
-    fun getAll(): List<Order>
+    suspend fun getAll(): List<Order>
 
-    @Query("SELECT * FROM `Order` WHERE userType IN (:userIds)")
-    fun loadAllByUserType(userIds: IntArray): List<Order>
+    @Query("SELECT * FROM `Order` WHERE orderType IN (:orderType)")
+    suspend fun loadOrderByType(orderType: String): List<Order>
 
     /*@Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")
     fun findByOrderNumber(first: String, last: String): User*/
+    @Insert
+    suspend fun insertOrder(order: Order)
 
     @Insert
-    fun insertAll(vararg orders: Order)
+    suspend fun insertAll(vararg orders: Order)
 
     @Delete
-    fun delete(order: Order)
+    suspend fun delete(order: Order)
 
 }

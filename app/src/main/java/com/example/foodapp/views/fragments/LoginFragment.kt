@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.foodapp.R
+import com.example.foodapp.Utils.UserType
 import com.example.foodapp.viewmodels.LoginViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +60,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+        showMenuFragment(UserType.MANAGER) //TODO : remove aman this part
         return view
     }
 

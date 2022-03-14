@@ -14,7 +14,9 @@ class ItemsCategoryAdapter(
 ) :RecyclerView.Adapter<ItemsCategoryAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-       val itemCategoryName = view.findViewById<TextView>(R.id.item_category_tv)
+       val itemCategoryName: TextView = view.findViewById<TextView>(R.id.item_category_tv)
+        val itemCategoryView = view
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,9 +27,15 @@ class ItemsCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            itemCategoryName.setText(itemsCategoryList.get(position))
-            itemCategoryName.setOnClickListener {
-                itemsCategoryClickListener.onItemCategoryClicked()
+            itemsCategoryList.get(position).apply {
+                itemCategoryName.setText(this.toString())
+            }
+            itemCategoryView.setOnClickListener {
+                with(itemsCategoryClickListener) {
+                    onItemCategoryClicked(
+                                itemCategoryName.text.toString()
+                            )
+                }
             }
         }
     }

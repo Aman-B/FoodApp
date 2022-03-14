@@ -7,7 +7,7 @@ import com.example.foodapp.data.sqlite.DAO.OrderDAO
 import com.example.foodapp.data.sqlite.entities.Item
 import com.example.foodapp.data.sqlite.entities.Order
 
-@Database(entities = [Item::class, Order::class], version = 1)
+@Database(entities = [Item::class, Order::class], version = 2)
 abstract class FoodAppDatabase : RoomDatabase() {
     abstract fun OrderDAO():OrderDAO
     abstract fun ItemDAO(): ItemDAO

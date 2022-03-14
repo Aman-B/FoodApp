@@ -8,7 +8,7 @@ import com.example.foodapp.data.sqlite.database.FoodAppDatabase
 class MainActivityViewModel(val db: FoodAppDatabase) : ViewModel() {
     private val isFoodDataInsertedInDB = MutableLiveData<Boolean>()
 
-    fun isFoodDataInsertedInDB(): MutableLiveData<Boolean> {
+    suspend fun isFoodDataInsertedInDB(): MutableLiveData<Boolean> {
         isFoodDataInsertedInDB.value = ItemRepository(db).insertItemsIfNotPresent()
         return isFoodDataInsertedInDB
     }

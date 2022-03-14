@@ -8,17 +8,25 @@ import com.example.foodapp.data.sqlite.entities.Item
 class ItemRepository(val db: FoodAppDatabase) {
     private val itemList: ArrayList<Item> = ArrayList()
 
-    fun insertItemsIfNotPresent(): Boolean {
+    suspend fun insertItemsIfNotPresent(): Boolean {
 
         val itemDao = db.ItemDAO()
         if (itemDao.loadAllItemsByCategory(ItemCategory.BURGER_CATEGORY).isEmpty()) {
             fillItemsInList()
             itemDao.insertAll(itemList)
+            db.close()
             return true
         }
 
         Log.i("item ", " " + itemDao.loadAllItemsByCategory(ItemCategory.BURGER_CATEGORY))
+        db.close()
         return true
+    }
+
+    suspend fun getItemsForThisCategory(category: String): ArrayList<Item> {
+        val itemDao = db.ItemDAO()
+        return itemDao.loadAllItemsByCategory(category = category) as ArrayList<Item>
+
     }
 
     private fun fillItemsInList() {

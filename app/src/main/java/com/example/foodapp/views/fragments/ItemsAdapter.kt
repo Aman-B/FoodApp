@@ -7,12 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodapp.R
 import com.example.foodapp.data.sqlite.entities.Item
+import com.example.foodapp.views.ItemClickListener
 
-class ItemsAdapter(private var itemsList: ArrayList<Item>) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(){
+class ItemsAdapter(private var itemsList: ArrayList<Item>, private var itemClickListener: ItemClickListener) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)  {
         val itemName = view.findViewById<TextView>(R.id.item_name)
         val itemCost = view.findViewById<TextView>(R.id.item_cost)
+        val itemsView = view
 
     }
 
@@ -24,8 +26,15 @@ class ItemsAdapter(private var itemsList: ArrayList<Item>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ItemsAdapter.ViewHolder, position: Int) {
         with(holder) {
-            itemName.text = itemsList.get(position).itemName
-            itemCost.text = itemsList.get(position).itemCost.toString()
+            itemsList.apply {
+                itemName.text = this[position].itemName
+                itemCost.text = this[position].itemCost.toString()
+                itemsView.setOnClickListener(View.OnClickListener {
+                    itemClickListener.onItemClicked(this[position] as Item)
+                })
+            }
+
+
         }
     }
 
