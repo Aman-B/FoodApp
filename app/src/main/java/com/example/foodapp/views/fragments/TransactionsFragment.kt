@@ -126,7 +126,7 @@ class TransactionsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showPopup() {
-
+        //Not implemented because of time constraints.
 
     }
 
